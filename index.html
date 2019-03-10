@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Decimal Detective</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="jquery.ui.touch-punch.min.js"></script>
+        <script src="jquery.alterclass.js"></script>
+        <script src="scrollIntoView.js"></script>
+        <script src="mersenne-twister.js"></script>
+        <link rel="stylesheet" href="detective.css">
+        <script src="detective.js"></script>
+    </head>
+    <body>
+        <div class="main-screen dontScroll">
+            <div id="notDecimal" class="popUpDialog">
+                <center>
+                <p style="color:red;">Dispatcher:</p>
+                The Crooked Decimal isn't in that building.
+                <p>
+                Bystanders reported that they saw him running to the <span id="cd-direction">right</span>.
+                <p>
+                <button onclick="$('#notDecimal').dialog('close');">Okay.</button>
+                </center>
+            </div>
+            <div id="checkedAlready" class="popUpDialog">
+                <center>
+                <p style="color:red;">Dispatcher:</p>
+                We've already checked that location and he isn't there.
+                <button onclick="$('#checkedAlready').dialog('close');">Okay.</button>
+                </center>
+            </div>
+            <div title="You got him!" id="caughtDecimal" class="popUpDialog">
+                <img src="pedestrian-criminal.svg" class="dialog-background" alt="Crooked decimal"/>
+                <button class="continueButton" onclick="$('#caughtDecimal').dialog('close'); continueGame();">Continue</button>
+            </div>
+            <div id="startDialog" class="popUpDialog">
+                <center>
+                    <b>Welcome to Decimal Detective!</b>
+                    <p>
+                    We've been hearing reports of missing decimal points from all over town lately.
+                    <p>
+                    Looks like the famous "Crooked Decimal" has escaped from jail again!
+                    He must be hiding in one of the houses on Decimal Drive. You'll
+                    notice that the address of every house on the street is a decimal
+                    number.
+                    <p>
+                    Can you help us find the Crooked Decimal before the town is overrun with chaos?
+                    We sure hope so!
+                    <p>
+                    <button onclick="sergeantMode = false; $('#startDialog').dialog('close');">Rookie (1-decimal precision)</button>
+                    <button onclick="sergeantMode = true; $('#startDialog').dialog('close');">Sergeant (3-decimal precision)</button>
+                </center>
+            </div>
+            <div title="Thanks for your help!" id="playAgainDialog" class="popUpDialog">
+                The Crooked Decimal has finally been locked behind bars forever!
+                <p>
+                Do you want to <a href=".">play again</a>?
+            </div>
+            <div id="gotAwayDialog" class="popUpDialog">
+                <center>
+                <p style="color:red;">Dispatcher:</p>
+                Odd. It looks like the Crooked Decimal isn't there. He must have escaped to somewhere else in the city!
+                <img src="cd-escaping.svg" class="dialog-background" alt="Escaped crooked decimal"/>
+                <p>
+                Let's try looking somewhere else.
+                <p>
+                <button onclick="$('#gotAwayDialog').dialog('close'); continueGame();">Okay.</button>
+                </center>
+            </div>
+            <div id="invalidDialog" class="popUpDialog">
+                <center>
+                <p style="color:red;">Dispatcher:</p>
+                The number you enter should be within the specified range.
+                <p>
+                <button onclick="$('#invalidDialog').dialog('close');">Okay.</button>
+                </center>
+            </div>
+            <div id="city-container">
+                <img id="test-circle" src="police-car.svg"/>
+                <div id="city-image-container">
+                    <img id="city-image" src="cityscene.svg"/>
+                    <div id="number-bar">
+                    </div>
+                </div>
+            </div>
+            <div id="ui-container">
+                <p style="color:red;">Dispatcher:</p>
+                <p id="dispatcher-instructions">
+                    Enter a number between <span id="cd-min">0.0</span> and <span id="cd-max">1.0</span>.
+                </p>
+                <div>
+                <input placeholder="Search address" id="decimal-number" type="text"/>
+                <button id="search-now">Go!</button>
+                </div>
+                <p id="score">You have searched <span id="search-times"></span> times.</p>
+                <a href=".">Ready to try another mode?</a>
+            </div>
+        </div>
+    </body>
+</html>
