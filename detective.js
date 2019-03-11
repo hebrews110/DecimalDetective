@@ -7,6 +7,8 @@ var actualLocation = 0;
 
 var cdMin = 0, cdMax = 0;
 
+var carSpeed = 3;
+
 var siren;
 
 var searchTimes = 0;
@@ -52,13 +54,16 @@ function moveCarTo(current, target, callback) {
             return defaultIsScrollable(target) || !target.classList.contains('dontScroll');
         }
     });
+    var speed = carSpeed;
+    if(Math.abs(current - target) < speed)
+        speed = Math.abs(current - target);
     if(current < target)
         setTimeout(function() {
-            moveCarTo(current + 1, target, callback);
+            moveCarTo(current + speed, target, callback);
         }, 25);
     else if(current > target) {
         setTimeout(function() {
-            moveCarTo(current - 1, target, callback);
+            moveCarTo(current - speed, target, callback);
         }, 25);
     }
     if(current === target) {
