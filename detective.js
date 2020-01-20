@@ -230,7 +230,7 @@ $(function() {
         height: 'auto',
         dialogClass: 'noTitle'
     });
-    $("#cd-direction").text("left");
+    $("#cd-direction").text("lower");
     nextScene();
     $("#search-now").click(function() {
         $("#search-now").prop('disabled', true); /* disable Go button */
@@ -244,11 +244,11 @@ $(function() {
             if(num < actualLocation) {
                 cdMin = num;
                 $("#cd-min").text(cdMin);
-                $("#cd-direction").text("right");
+                $("#cd-direction").text("higher");
                 notDecimal();
                 playSiren(false);
             } else if(num > actualLocation) {
-                $("#cd-direction").text("left");
+                $("#cd-direction").text("lower");
                 cdMax = num;
                 $("#cd-max").text(cdMax);
                 notDecimal();
